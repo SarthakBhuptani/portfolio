@@ -1,147 +1,205 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import profileImg from '../assets/profile.png';
-import { FiGithub, FiLinkedin, FiMail, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
-const experienceData = [
-  {
-    company: "Freelance",
-    role: "Full Stack Developer",
-    date: "2025 - Present"
-  },
-  {
-    company: "LDRP Institute of Technology",
-    role: "Bachelor of Engineering",
-    date: "2023 - 2026"
-  },
-  {
-    company: "BBIT Institute of Technology",
-    role: "Diploma in Engineering",
-    date: "2020 - 2023"
-  }
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1], delay }
+  })
+};
+
+const statVariants = {
+  hidden: { opacity: 0, scale: 0.7 },
+  visible: (i) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { type: 'spring', stiffness: 220, damping: 18, delay: i * 0.12 + 0.5 }
+  })
+};
+
+const stats = [
+  { value: '2+', label: 'Years Coding' },
+  { value: '8+', label: 'Projects Built' },
+  { value: '1+', label: 'Years Experience' }
 ];
 
 const About = () => {
-  const [showAll, setShowAll] = useState(false);
-  const visibleExperiences = showAll ? experienceData : experienceData.slice(0, 1);
-
   return (
-    <section id="about" className="relative py-16 sm:py-24 px-6 bg-[#f4f4f5]">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-10 lg:gap-16 items-start">
-        
+    <section id="about" className="relative py-16 sm:py-24 px-6 bg-transparent overflow-hidden">
+
+      {/* Decorative floating blobs */}
+      <motion.div
+        animate={{ y: [0, -15, 0], x: [0, 10, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="pointer-events-none absolute top-10 right-10 w-48 h-48 bg-purple-400/8 dark:bg-purple-500/8 rounded-full blur-3xl"
+      />
+      <motion.div
+        animate={{ y: [0, 12, 0], x: [0, -8, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+        className="pointer-events-none absolute bottom-10 left-0 w-64 h-64 bg-blue-400/8 dark:bg-cyan-500/8 rounded-full blur-3xl"
+      />
+
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-10 lg:gap-16 items-start relative z-10">
+
         {/* --- LEFT COLUMN: Profile & Experience --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          variants={fadeUp}
+          custom={0}
           className="w-full md:w-5/12 space-y-8"
         >
           <div className="space-y-6 text-center md:text-left">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-[#111827] leading-tight break-words">
+            <motion.h2
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="text-3xl sm:text-4xl md:text-5xl font-light text-slate-800 dark:text-slate-200 leading-tight break-words"
+            >
               About
               <br />
-              <span className="font-semibold tracking-tight text-[#111827]">Sarthak Bhuptani</span>
-            </h2>
+              <span className="font-semibold tracking-tight text-slate-900 dark:text-white">Sarthak Bhuptani</span>
+            </motion.h2>
 
-            <div className="relative w-full max-w-[240px] sm:max-w-[300px] aspect-square rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-200 bg-white mx-auto md:mx-0 group">
-              <img src={profileImg} alt="Sarthak Bhuptani" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110" />
-              
-              {/* Desktop Only Social Overlay (Hidden on Mobile as per user request to 'fix image') */}
-              <div className="absolute hidden md:flex bottom-4 left-0 right-0 justify-center gap-3">
-                <a href="https://www.linkedin.com/in/sarthak-bhuptani-8a232a247/" target="_blank" rel="noreferrer" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-slate-800 shadow-md hover:bg-slate-50 transition-colors">
-                  <FiLinkedin size={18} />
-                </a>
-                <a href="https://github.com/sarthak-bhuptani" target="_blank" rel="noreferrer" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-slate-800 shadow-md hover:bg-slate-50 transition-colors">
-                  <FiGithub size={18} />
-                </a>
-                <a href="#contact" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-slate-800 shadow-md hover:bg-slate-50 transition-colors">
-                  <FiMail size={18} />
-                </a>
+            {/* Profile image with ring animation */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              whileHover={{ scale: 1.02 }}
+              className="relative w-full max-w-[240px] sm:max-w-[300px] aspect-square mx-auto md:mx-0"
+            >
+              {/* Animated ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0 rounded-[2.5rem] border-2 border-dashed border-blue-400/30 dark:border-cyan-400/20 pointer-events-none"
+                style={{ margin: '-6px' }}
+              />
+              <div className="rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-md border border-slate-200/50 dark:border-slate-800/80 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md group w-full h-full">
+                <img
+                  src={profileImg}
+                  alt="Sarthak Bhuptani"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+
+                {/* Desktop Only Social Overlay */}
+                <div className="absolute hidden md:flex bottom-4 left-0 right-0 justify-center gap-3">
+                  {[
+                    { href: 'https://www.linkedin.com/in/sarthak-bhuptani-8a232a247/', Icon: FiLinkedin },
+                    { href: 'https://github.com/sarthak-bhuptani', Icon: FiGithub },
+                    { href: '#contact', Icon: FiMail }
+                  ].map(({ href, Icon }, i) => (
+                    <motion.a
+                      key={i}
+                      href={href}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                      whileHover={{ scale: 1.15, y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-9 h-9 bg-white/90 dark:bg-slate-800/90 rounded-full flex items-center justify-center text-slate-800 dark:text-slate-200 shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                    >
+                      <Icon size={18} />
+                    </motion.a>
+                  ))}
+                </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="pt-2 text-center md:text-left">
-              <h3 className="text-xl font-bold text-slate-800">Sarthak Bhuptani</h3>
-              <p className="text-sm font-medium text-slate-500 mt-1 uppercase tracking-wider">Full Stack Developer</p>
-              
-              {/* Mobile Social Row (Clean and off the image face) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="pt-2 text-center md:text-left"
+            >
+              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Sarthak Bhuptani</h3>
+              <p className="text-sm font-semibold text-blue-600 dark:text-cyan-400 mt-1 uppercase tracking-wider">Full Stack Developer</p>
+
+              {/* Mobile Social Row */}
               <div className="flex md:hidden justify-center gap-4 mt-6">
-                <a href="https://www.linkedin.com/in/sarthak-bhuptani-8a232a247/" target="_blank" rel="noreferrer" className="w-11 h-11 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 shadow-sm active:scale-95 transition-all">
-                  <FiLinkedin size={20} />
-                </a>
-                <a href="https://github.com/sarthak-bhuptani" target="_blank" rel="noreferrer" className="w-11 h-11 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 shadow-sm active:scale-95 transition-all">
-                  <FiGithub size={20} />
-                </a>
-                <a href="#contact" className="w-11 h-11 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 shadow-sm active:scale-95 transition-all">
-                  <FiMail size={20} />
-                </a>
+                {[
+                  { href: 'https://www.linkedin.com/in/sarthak-bhuptani-8a232a247/', Icon: FiLinkedin },
+                  { href: 'https://github.com/sarthak-bhuptani', Icon: FiGithub },
+                  { href: '#contact', Icon: FiMail }
+                ].map(({ href, Icon }, i) => (
+                  <motion.a
+                    key={i}
+                    href={href}
+                    target={href.startsWith('http') ? '_blank' : undefined}
+                    rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                    whileHover={{ scale: 1.12, y: -2 }}
+                    whileTap={{ scale: 0.93 }}
+                    className="w-11 h-11 bg-white/60 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300 shadow-sm transition-all"
+                  >
+                    <Icon size={20} />
+                  </motion.a>
+                ))}
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="pt-4 md:pt-4">
-            <h4 className="text-lg font-bold text-[#111827] mb-6 flex items-center gap-3 justify-center md:justify-start">
-              <span className="w-8 h-[2px] bg-[#111827] hidden md:block"></span>
-              Experience & Education
-            </h4>
-            
-            <div className="space-y-3 px-2 sm:px-0">
-              {visibleExperiences.map((item, index) => (
-                <motion.div 
-                   initial={{ opacity: 0, x: -20 }}
-                   whileInView={{ opacity: 1, x: 0 }}
-                   transition={{ delay: index * 0.1 }}
-                   key={index} 
-                   className="bg-white rounded-2xl p-4 sm:p-6 shadow-[0_2px_10px_rgba(0,0,0,0.015)] border border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4 group hover:border-slate-300 transition-colors"
-                >
-                  <div className="flex-1">
-                    <h5 className="font-bold text-base sm:text-lg text-[#111827] mb-0.5">{item.company}</h5>
-                    <p className="text-slate-500 font-medium text-[13px] sm:text-sm">{item.role}</p>
-                  </div>
-                  <span className="text-[10px] sm:text-xs text-slate-400 font-bold bg-slate-50 px-3 py-1 rounded-full whitespace-nowrap">{item.date}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="mt-6 flex justify-center md:justify-start">
-              <button 
-                onClick={() => setShowAll(!showAll)}
-                className="flex items-center gap-2 bg-white border border-slate-200 px-6 py-2.5 rounded-full text-slate-900 font-bold shadow-sm hover:shadow-md transition-all text-sm"
+          {/* Stats row */}
+          <div className="flex justify-center md:justify-start gap-6">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={statVariants}
+                whileHover={{ y: -4, scale: 1.06 }}
+                className="text-center"
               >
-                {showAll ? 'Show less' : 'Show all'}
-                <div className="w-5 h-5 bg-[#111827] text-white rounded-full flex items-center justify-center">
-                  {showAll ? <FiChevronUp size={14} /> : <FiChevronDown size={14} />}
+                <div className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-cyan-400 dark:to-blue-500 bg-clip-text text-transparent">
+                  {s.value}
                 </div>
-              </button>
-            </div>
-
+                <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-0.5">
+                  {s.label}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
         {/* --- RIGHT COLUMN: Narrative --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="w-full md:w-7/12 space-y-6 sm:space-y-10 text-[1rem] sm:text-[1.15rem] text-slate-600 font-light leading-[1.8] pt-2 md:pt-44 text-center md:text-left"
+          variants={fadeUp}
+          custom={0.2}
+          className="w-full md:w-7/12 space-y-6 sm:space-y-10 text-[1rem] sm:text-[1.15rem] text-slate-700 dark:text-slate-300 font-normal leading-[1.8] pt-2 md:pt-44 text-center md:text-left"
         >
-          <p>
-            I’m a <strong className="font-semibold text-slate-900">Full Stack Developer</strong> specializing in the MERN stack, with experience building real-world applications like AI Quiz platforms, stock systems, and modern web apps. I focus on creating scalable and user-friendly solutions.
-          </p>
-          
-          <p>
-            My core skills include <span className="font-semibold text-slate-800">React, Node.js, MongoDB</span>, and REST API development. I enjoy working on both frontend and backend, ensuring clean code, performance, and maintainability.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            I'm a <strong className="font-bold text-slate-900 dark:text-white">Full Stack MERN Developer</strong> passionate about building scalable and user-friendly web applications. I have experience developing AI-powered projects, stock management systems, and modern business applications.
+          </motion.p>
 
-          <p>
-            I’m always learning and exploring new technologies, aiming to build impactful products and improve my development skills continuously.
-          </p>
-
-          <div className="mt-8 sm:mt-16 pt-8 border-t border-slate-200/60 inline-block w-full">
-            <span className="font-[signature-font] italic text-4xl sm:text-5xl text-slate-300 opacity-80 pointer-events-none block" style={{ fontFamily: "'Dancing Script', cursive" }}>Sarthak Bhuptani</span>
-          </div>
+          <motion.p
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.22 }}
+          >
+            I specialize in{' '}
+            <span className="font-semibold text-slate-900 dark:text-white underline decoration-blue-500/30 dark:decoration-cyan-400/30 underline-offset-8">
+              React, Node.js, Express.js, MongoDB, and REST APIs
+            </span>
+            , with a strong focus on clean code, performance, and continuous learning.
+          </motion.p>
         </motion.div>
 
       </div>

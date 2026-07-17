@@ -1,116 +1,228 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   SiReact, SiJavascript, SiHtml5, SiCss3, SiTailwindcss,
   SiNodedotjs, SiMongodb, SiMysql, SiGit, SiGithub,
-  SiVisualstudiocode, SiPython, SiDjango, SiPostman
+  SiVisualstudiocode, SiPython, SiDjango, SiPostman,
+  SiOpenai, SiGoogle
 } from 'react-icons/si';
-import { FiLayers, FiSettings, FiServer, FiZap } from 'react-icons/fi';
+import { FiCpu, FiTerminal, FiActivity, FiHeart, FiZap } from 'react-icons/fi';
 
-const techIcons = [
-  { icon: SiReact, name: 'React' },
-  { icon: SiJavascript, name: 'JavaScript' },
-  { icon: SiHtml5, name: 'HTML5' },
-  { icon: SiCss3, name: 'CSS3' },
-  { icon: SiTailwindcss, name: 'Tailwind' },
-  { icon: SiNodedotjs, name: 'Node.js' },
-  { icon: SiMongodb, name: 'MongoDB' },
-  { icon: SiMysql, name: 'MySQL' },
-  { icon: SiGit, name: 'Git' },
-  { icon: SiGithub, name: 'GitHub' },
-  { icon: SiVisualstudiocode, name: 'VS Code' },
-  { icon: SiPython, name: 'Python' },
-  { icon: SiDjango, name: 'Django' },
-  { icon: SiPostman, name: 'Postman' }
+const frontendIcons = [
+  { icon: SiReact, name: 'React', color: '#61dafb' },
+  { icon: SiJavascript, name: 'JavaScript', color: '#f7df1e' },
+  { icon: SiHtml5, name: 'HTML5', color: '#e34f26' },
+  { icon: SiCss3, name: 'CSS3', color: '#1572b6' },
+  { icon: SiTailwindcss, name: 'Tailwind', color: '#06b6d4' }
 ];
 
-const capabilities = [
-  {
-    title: "Full Stack Development",
-    description: "Building scalable web applications using MERN stack with clean architecture and high performance.",
-    icon: FiLayers
-  },
-  {
-    title: "Backend Core",
-    description: "Structuring reliable and maintainable backend logic, working with databases like MongoDB and MySQL.",
-    icon: FiSettings
-  },
-  {
-    title: "REST API Development",
-    description: "Developing secure and efficient APIs for dashboards, campaign systems, and third-party integrations.",
-    icon: FiServer
-  },
-  {
-    title: "Performance Optimization",
-    description: "Improving application speed, database queries, and system scalability for high-load environments.",
-    icon: FiZap
-  }
+const backendIcons = [
+  { icon: SiNodedotjs, name: 'Node.js', color: '#339933' },
+  { icon: SiMongodb, name: 'MongoDB', color: '#47a248' },
+  { icon: SiMysql, name: 'MySQL', color: '#4479a1' },
+  { icon: SiPython, name: 'Python', color: '#3776ab' },
+  { icon: SiDjango, name: 'Django', color: '#092e20', darkColor: '#44b78b' }
 ];
+
+const toolsIcons = [
+  { icon: SiGit, name: 'Git', color: '#f05032' },
+  { icon: SiGithub, name: 'GitHub', color: '#181717', darkColor: '#ffffff' },
+  { icon: SiVisualstudiocode, name: 'VS Code', color: '#007acc' },
+  { icon: SiPostman, name: 'Postman', color: '#ff6c37' }
+];
+
+const aiIcons = [
+  { icon: SiOpenai, name: 'ChatGPT', color: '#10a37f' },
+  { icon: FiCpu, name: 'Copilot', color: '#6f42c1' },
+  { icon: FiCpu, name: 'Claude', color: '#d97706' },
+  { icon: SiGoogle, name: 'Gemini', color: '#4285f4' },
+  { icon: FiTerminal, name: 'Cursor AI', color: '#000000', darkColor: '#ffffff' },
+  { icon: FiActivity, name: 'Kiro', color: '#2563eb' },
+  { icon: FiHeart, name: 'Lovable', color: '#ec4899' },
+  { icon: FiZap, name: 'Antigravity', color: '#f59e0b' }
+];
+
+const TechCard = ({ tech, index }) => {
+  const [hovered, setHovered] = useState(false);
+
+  const getBrandColor = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (isDark && tech.darkColor) return tech.darkColor;
+    return tech.color;
+  };
+
+  const brandColor = getBrandColor();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      whileHover={{ y: -3, scale: 1.04 }}
+      transition={{ 
+        delay: index * 0.01,
+        type: "spring",
+        stiffness: 400,
+        damping: 17
+      }}
+      viewport={{ once: true }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        boxShadow: hovered ? `0 8px 20px -4px ${brandColor}25, 0 0 10px ${brandColor}15` : 'none',
+        borderColor: hovered ? brandColor : undefined,
+      }}
+      className="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 bg-slate-50/80 dark:bg-slate-900/40 backdrop-blur-sm rounded-xl border border-slate-200/60 dark:border-slate-800/85 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-850/50 transition-colors duration-300 group cursor-pointer shadow-sm w-full"
+    >
+      <tech.icon 
+        style={{ color: hovered ? brandColor : undefined }}
+        className="text-xl sm:text-2xl text-slate-700 dark:text-slate-300 transition-colors duration-300 flex-shrink-0" 
+      />
+      <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
+        {tech.name}
+      </span>
+    </motion.div>
+  );
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.12 }
+  })
+};
 
 const Skills = () => {
   return (
-    <section id="skills" className="relative py-24 px-6 bg-[#f4f4f5]">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_1.5fr] gap-12 lg:gap-16 items-start">
+    <section id="skills" className="relative py-20 px-6 bg-transparent overflow-hidden">
 
-        {/* --- LEFT: Tech Stack Grid --- */}
+      {/* Ambient blobs */}
+      <motion.div
+        animate={{ y: [0, -18, 0], scale: [1, 1.07, 1] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+        className="pointer-events-none absolute -top-20 right-0 w-64 h-64 bg-indigo-400/8 dark:bg-cyan-500/8 rounded-full blur-3xl"
+      />
+      <motion.div
+        animate={{ y: [0, 14, 0], x: [0, -10, 0] }}
+        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+        className="pointer-events-none absolute bottom-0 left-0 w-72 h-72 bg-blue-400/8 dark:bg-blue-500/8 rounded-full blur-3xl"
+      />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="w-full"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-normal text-[#111827] mb-2 leading-tight text-center md:text-left">
-            Engineering<br className="hidden md:block" />
-            <span className="text-slate-500 font-light">Toolkit</span>
+          <span className="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-3">🔧 Skills</span>
+          <h2 className="text-4xl md:text-5xl font-light text-slate-800 dark:text-slate-200 mb-4 leading-tight">
+            Skills & <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-cyan-400 dark:to-blue-500 bg-clip-text text-transparent font-bold">Technologies</span>
           </h2>
-
-          <p className="text-[15px] text-slate-500 mt-8 mb-6 text-center md:text-left">My tech stack</p>
-
-          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-4 lg:grid-cols-4 gap-3 sm:gap-4 overflow-hidden">
-            {techIcons.map((tech, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.05 }}
-                viewport={{ once: true }}
-                className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-xl sm:rounded-2xl flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-slate-200/60 hover:shadow-md transition-shadow group cursor-pointer mx-auto"
-                title={tech.name}
-              >
-                <tech.icon className="text-xl sm:text-2xl text-slate-800 group-hover:text-black transition-colors" />
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: '6rem' }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+            className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6"
+          />
+          <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+            A curated selection of frameworks, languages, databases, and development utilities I rely on to build scalable and high-performance applications.
+          </p>
         </motion.div>
 
-        {/* --- RIGHT: Capabilities List --- */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="space-y-8 sm:space-y-10 pt-8 lg:pt-16"
-        >
-          {capabilities.map((cap, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 + index * 0.1 }}
-              className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-start"
-            >
-              <div className="w-10 h-10 rounded-[10px] bg-[#111827] flex-shrink-0 flex items-center justify-center text-white shadow-md relative top-0.5">
-                <cap.icon size={18} />
-              </div>
-              <div>
-                <h3 className="text-[1.1rem] font-bold text-slate-900 mb-1">{cap.title}</h3>
-                <p className="text-[1rem] sm:text-[1.05rem] text-slate-600 font-light leading-[1.6] max-w-lg">{cap.description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* 2-Column Categorized Stack Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          
+          {/* Frontend Category Card */}
+          <motion.div
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -6, boxShadow: '0 20px 40px -10px rgba(99,102,241,0.12)' }}
+            className="bg-white/70 dark:bg-slate-900/30 backdrop-blur-md border border-slate-200/70 dark:border-slate-800/50 rounded-[2rem] p-6 sm:p-8 shadow-md shadow-slate-100/50 dark:shadow-none flex flex-col gap-6 text-left transition-shadow duration-300"
+          >
+            <div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Frontend</h3>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Interface languages & frameworks</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 w-full">
+              {frontendIcons.map((tech, index) => (
+                <TechCard key={tech.name} tech={tech} index={index} />
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Backend Category Card */}
+          <motion.div
+            custom={1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -6, boxShadow: '0 20px 40px -10px rgba(99,102,241,0.12)' }}
+            className="bg-white/70 dark:bg-slate-900/30 backdrop-blur-md border border-slate-200/70 dark:border-slate-800/50 rounded-[2rem] p-6 sm:p-8 shadow-md shadow-slate-100/50 dark:shadow-none flex flex-col gap-6 text-left transition-shadow duration-300"
+          >
+            <div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Backend</h3>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Server logic, database & algorithms</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 w-full">
+              {backendIcons.map((tech, index) => (
+                <TechCard key={tech.name} tech={tech} index={index} />
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Tools & Utilities Category Card */}
+          <motion.div
+            custom={2}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -6, boxShadow: '0 20px 40px -10px rgba(99,102,241,0.12)' }}
+            className="bg-white/70 dark:bg-slate-900/30 backdrop-blur-md border border-slate-200/70 dark:border-slate-800/50 rounded-[2rem] p-6 sm:p-8 shadow-md shadow-slate-100/50 dark:shadow-none flex flex-col gap-6 text-left transition-shadow duration-300"
+          >
+            <div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Tools & Utilities</h3>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Version control & editors</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 w-full">
+              {toolsIcons.map((tech, index) => (
+                <TechCard key={tech.name} tech={tech} index={index} />
+              ))}
+            </div>
+          </motion.div>
+
+          {/* AI Tools Category Card */}
+          <motion.div
+            custom={3}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -6, boxShadow: '0 20px 40px -10px rgba(99,102,241,0.12)' }}
+            className="bg-white/70 dark:bg-slate-900/30 backdrop-blur-md border border-slate-200/70 dark:border-slate-800/50 rounded-[2rem] p-6 sm:p-8 shadow-md shadow-slate-100/50 dark:shadow-none flex flex-col gap-6 text-left transition-shadow duration-300"
+          >
+            <div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">AI Tools</h3>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Generative helpers & IDE automation</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 w-full">
+              {aiIcons.map((tech, index) => (
+                <TechCard key={tech.name} tech={tech} index={index} />
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
 
       </div>
     </section>

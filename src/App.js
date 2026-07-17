@@ -19,7 +19,13 @@ import CommandPalette from './components/CommandPalette';
 function App() {
   return (
     <Router>
-      <div className="relative antialiased selection:bg-cyan-500 selection:text-white min-h-screen flex flex-col">
+      <Preloader />
+      <ScrollProgress />
+      <CustomCursor />
+      <AnimatedBackground />
+      <CommandPalette />
+
+      <div className="relative antialiased selection:bg-cyan-500 selection:text-white min-h-screen flex flex-col transition-colors duration-300">
         {/* Navigation */}
         <Navbar />
 
@@ -38,7 +44,7 @@ function App() {
   
             <section id="about" className="pt-20">
               <About />
-              {/* <Timeline /> */}
+              <Timeline />
             </section>
   
             <section id="skills" className="pt-20">
@@ -48,7 +54,6 @@ function App() {
             <section id="projects" className="pt-20">
               <Projects />
             </section>
-  
   
             <section id="contact" className="pt-20">
               <Contact />

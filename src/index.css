@@ -11,13 +11,12 @@ html {
 body {
   overflow-x: hidden;
   font-family: 'Inter', sans-serif;
-  background-color: #f8f8f8;
-  color: #111827;
+  background-color: transparent;
 }
 
 @layer base {
   body {
-    @apply transition-colors duration-300;
+    @apply text-slate-900 dark:text-slate-100 transition-colors duration-300;
   }
 }
 
@@ -80,3 +79,84 @@ body {
     background-position: 100% 50%;
   }
 }
+
+/* ---- Page-wide animation utilities ---- */
+@layer utilities {
+  /* Slide up fade-in for sections */
+  .animate-slide-up {
+    animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Shimmer / shine sweep */
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  /* Float up-down */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Glow pulse for accent elements */
+  .animate-glow {
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  /* Fade-in on load */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out both;
+  }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0px rgba(99, 102, 241, 0.0); }
+  50%       { box-shadow: 0 0 30px rgba(99, 102, 241, 0.4); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Smooth link underline grow animation */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Card tilt glow effect on hover */
+.card-glow:hover {
+  box-shadow: 0 20px 60px -12px rgba(99, 102, 241, 0.2);
+  transform: translateY(-6px);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
