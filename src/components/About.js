@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import profileImg from '../assets/profile.png';
+import profileImg from '../assets/backup/profile.png';
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
 const fadeUp = {

@@ -44,8 +44,9 @@ function App() {
   
             <section id="about" className="pt-20">
               <About />
-              <Timeline />
             </section>
+
+            <Timeline />
   
             <section id="skills" className="pt-20">
               <Skills />

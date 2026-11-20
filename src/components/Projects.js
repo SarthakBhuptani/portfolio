@@ -3,12 +3,12 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, ChevronDown, ChevronUp } from 'lucide-react';
 
-import stockImg from '../assets/stock.png';
-import voiceImg from '../assets/voice.png';
-import libraryImg from '../assets/library.png';
-import newsImg from '../assets/news.png';
-import quizeImg from '../assets/quiz.png';
-import mindcareImg from '../assets/mindcare.png';
+import stockImg from '../assets/backup/stock.png';
+import voiceImg from '../assets/backup/voice.png';
+import libraryImg from '../assets/backup/library.png';
+import newsImg from '../assets/backup/news.png';
+import quizeImg from '../assets/backup/quiz.png';
+import mindcareImg from '../assets/backup/mindcare.png';
 
 const projects = [
   {

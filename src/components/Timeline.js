@@ -6,19 +6,52 @@ import { Briefcase, GraduationCap, Calendar, MapPin, Award } from 'lucide-react'
 const timelineData = [
     {
         type: "experience",
-        title: "Full Stack Developer",
-        place: "Freelance",
-        date: "2025 - Present",
+        title: "MERN Stack Developer",
+        place: "Web Bunny Development, Gandhinagar",
+        date: "Mar 2026 - Present",
         highlights: [
-            "Developed responsive web applications using React and Tailwind.",
-            "Integrated secure authentication systems with Clerk/Auth0.",
-            "Improved site performance scores by 40% via optimizations."
+            "Developing responsive web applications using React.js and Tailwind CSS.",
+            "Building REST APIs using Node.js and Express.js.",
+            "Managing MongoDB databases and implementing CRUD operations.",
+            "Integrating frontend components with backend APIs.",
+            "Debugging and improving application functionality."
         ],
         icon: Briefcase,
         color: "text-cyan-400",
         glow: "shadow-[0_0_30px_-5px_rgba(34,211,238,0.3)]",
         border: "border-cyan-500/30"
     },
+    {
+        type: "experience",
+        title: "Frontend & API Developer Intern",
+        place: "Vischara Ventures Private Limited, Gandhinagar",
+        date: "Oct 2025 - Mar 2026",
+        highlights: [
+            "Developed responsive user interfaces using React.js and JavaScript.",
+            "Integrated REST APIs for dynamic data handling.",
+            "Created reusable components and form validations.",
+            "Worked on API integration and frontend debugging."
+        ],
+        icon: Briefcase,
+        color: "text-blue-400",
+        glow: "shadow-[0_0_30px_-5px_rgba(96,165,250,0.3)]",
+        border: "border-blue-500/30"
+    },
+    // {    
+    //     type: "experience",
+    //     title: "Full Stack Developer",
+    //     place: "Freelance",
+    //     date: "2025",
+    //     highlights: [
+    //         "Developed responsive web applications using React and Tailwind.",
+    //         "Integrated secure authentication systems with Clerk/Auth0.",
+    //         "Improved site performance scores by 40% via optimizations."
+    //     ],
+    //     icon: Briefcase,
+    //     color: "text-emerald-400",
+    //     glow: "shadow-[0_0_30px_-5px_rgba(52,211,153,0.3)]",
+    //     border: "border-emerald-500/30"
+    // },
     {
         type: "education",
         title: "Bachelor of Engineering",
@@ -45,9 +78,9 @@ const timelineData = [
             "Completed capstone project on Library Management"
         ],
         icon: Award,
-        color: "text-blue-400",
-        glow: "shadow-[0_0_30px_-5px_rgba(96,165,250,0.3)]",
-        border: "border-blue-500/30"
+        color: "text-indigo-400",
+        glow: "shadow-[0_0_30px_-5px_rgba(129,140,248,0.3)]",
+        border: "border-indigo-500/30"
     }
 ];
 
@@ -77,9 +110,9 @@ const TimelineItem = ({ data, index }) => {
             {/* Card Content */}
             <div className="w-full md:w-5/12 ml-0 md:ml-0">
                 <motion.div
-            whileHover={{ scale: 1.02 }}
-            className={`p-1 rounded-3xl bg-gradient-to-br from-white/10 to-transparent ${data.glow}`}
-        >
+                    whileHover={{ scale: 1.02 }}
+                    className={`p-1 rounded-3xl bg-gradient-to-br from-white/10 to-transparent ${data.glow}`}
+                >
                     <div className="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-[22px] p-6 h-full border border-slate-200/50 dark:border-slate-800/50 shadow-sm transition-all duration-300">
 
                         {/* Mobile Date */}
@@ -122,33 +155,33 @@ const Timeline = () => {
 
             {/* Ambient orbs */}
             <motion.div
-              animate={{ y: [0, -20, 0], scale: [1, 1.07, 1] }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-              className="pointer-events-none absolute top-0 right-0 w-72 h-72 bg-purple-400/8 dark:bg-purple-500/8 rounded-full blur-3xl"
+                animate={{ y: [0, -20, 0], scale: [1, 1.07, 1] }}
+                transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+                className="pointer-events-none absolute top-0 right-0 w-72 h-72 bg-purple-400/8 dark:bg-purple-500/8 rounded-full blur-3xl"
             />
             <motion.div
-              animate={{ y: [0, 14, 0] }}
-              transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-              className="pointer-events-none absolute bottom-0 left-0 w-80 h-80 bg-cyan-400/8 dark:bg-cyan-500/8 rounded-full blur-3xl"
+                animate={{ y: [0, 14, 0] }}
+                transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+                className="pointer-events-none absolute bottom-0 left-0 w-80 h-80 bg-cyan-400/8 dark:bg-cyan-500/8 rounded-full blur-3xl"
             />
 
             <div ref={ref} className="max-w-6xl mx-auto relative z-10">
 
                 {/* Header */}
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-center mb-24"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-center mb-24"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">My Journey</h2>
                     <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: '6rem' }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, ease: 'easeOut', delay: 0.35 }}
-                      className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '6rem' }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.35 }}
+                        className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"
                     />
                 </motion.div>
 

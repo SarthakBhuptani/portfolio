@@ -13,7 +13,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
 
       // Scroll Spy Logic
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+      const sections = ['home', 'about', 'experience', 'skills', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -35,6 +35,7 @@ const Navbar = () => {
   const menuItems = [
     { label: "Home", href: "#home", icon: <Home size={18} /> },
     { label: "About", href: "#about", icon: <User size={18} /> },
+    { label: "Experience", href: "#experience", icon: <Briefcase size={18} /> },
     { label: "Skills", href: "#skills", icon: <Code size={18} /> },
     { label: "Projects", href: "#projects", icon: <Briefcase size={18} /> },
     { label: "Contact", href: "#contact", icon: <Mail size={18} /> },
@@ -133,7 +134,7 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Bottom Navigation (Instagram Style) */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-[100] bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-900/50 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] px-6 py-2 pb-3 flex items-center justify-between">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-[100] bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-900/50 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] px-2 py-1.5 pb-2.5 flex items-center justify-around">
         {menuItems.map((item) => {
           const isActive = activeSection === item.href.replace('#', '');
           return (
@@ -141,17 +142,16 @@ const Navbar = () => {
               key={item.label}
               href={item.href}
               onClick={(e) => handleScrollTo(e, item.href)}
-              className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 relative py-1 ${
+              className={`flex flex-col items-center justify-center gap-0.5 transition-all duration-300 relative py-1 flex-1 ${
                 isActive 
                 ? 'text-blue-600 dark:text-cyan-400 scale-105' 
                 : 'text-slate-500 dark:text-slate-400 font-medium'
               }`}
-              style={{ width: '20%' }}
             >
               <div className="transition-transform active:scale-75">
                 {item.icon}
               </div>
-              <span className="text-[10px] tracking-wide font-medium">{item.label}</span>
+              <span className="text-[9px] tracking-tight font-medium truncate">{item.label}</span>
               {isActive && (
                 <motion.span 
                   layoutId="activeTabDot"
